@@ -1,5 +1,11 @@
 # Siming
 
+<p>
+  <img src="https://img.shields.io/badge/Status-In_Development-yellow?logo=github" alt="status">
+  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen?logo=github" alt="prs-welcome">
+  <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+</p>
+
 ![Cover](assets/cover.png)
 
 # Project Overview
