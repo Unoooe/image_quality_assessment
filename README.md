@@ -1,9 +1,9 @@
 # Siming
 
 <p>
-  <img src="https://img.shields.io/badge/version-0.1.0-blue" alt="version">
   <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="prs-welcome">
-  <img src="https://img.shields.io/badge/License-MIT-green" alt="license">
+  <img src="https://img.shields.io/badge/version-0.1.0-blue" alt="version">
+  <img src="https://img.shields.io/badge/License-MIT-orange" alt="license">
 </p>
 
 ![Cover](assets/cover.png)
