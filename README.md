@@ -1,10 +1,4 @@
-# Siming
-
-<p>
-  <img src="https://img.shields.io/badge/PRs-Welcome-brightgreen" alt="prs-welcome">
-  <img src="https://img.shields.io/badge/version-0.1.0-blue" alt="version">
-  <img src="https://img.shields.io/badge/License-MIT-orange" alt="license">
-</p>
+# DiffuScore
 
 ![Cover](assets/cover.png)
 
@@ -17,25 +11,21 @@ Once, Siming inscribed the fate of men; today, Siming judges the merit of genera
 ## Features
 
 ### Image Upload
-
 - Drag and drop image upload
 - Support for batch upload of multiple images
 - Click to upload single file or entire folder
 - Image preview
 
 ### Quality Metrics Calculation
-
 - **MS-SSIM** (Multi-Scale Structural Similarity) - Higher is better
 - **PSNR** (Peak Signal-to-Noise Ratio) - Higher is better
 - **LPIPS** (Learned Perceptual Image Patch Similarity) - Lower is better
 
 ### Comparison Modes
-
 - **Single Image Comparison** - Upload a pair of images for assessment
 - **Multi-Image Comparison** - Batch upload multiple images, system auto-sorts by name and pairs them for comparison
 
 ### Report Export
-
 - **Summary Report** - Image preview + average metrics
 - **Detailed Report** - Contains detailed data for all comparison pairs
 - **Data Table** - CSV format with averages and standard deviations
@@ -72,6 +62,8 @@ Then open http://localhost:5000 in your browser
 
 ## Project Structure
 
+### Project Structure
+
 ```text
 ├── app.py              # Flask backend application
 ├── requirements.txt    # Python dependencies
@@ -93,7 +85,6 @@ Then open http://localhost:5000 in your browser
 5. After assessment completes, click "Save Report" to export results
 
 ### Batch Upload
-
 - Support for dragging folders
 - System auto-sorts by name and pairs images (index positions correspond one-to-one)
 - Multi-image mode exports: summary report, detailed report, CSV data table
