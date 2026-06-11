@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Quality Assessment System</title>
+    <title>Siming</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -35,7 +35,7 @@
                         <div class="preview-wrapper">
                             <img id="referenceImg" alt="Generated Image">
                         </div>
-                        <p class="filename" id="referenceFilename" data-label="Generated:"><span class="filename-label">Generated:</span></p>
+                        <p class="filename" id="referenceFilename" data-label="Gen:"><span class="filename-label">Gen:</span></p>
                     </div>
                     <div class="preview-area multi-preview" id="referenceMultiPreview" style="display: none;">
                         <button class="remove-btn" onclick="removeMulti('reference')">
@@ -47,7 +47,7 @@
                         <div class="preview-wrapper">
                             <div class="multi-stack" id="referenceThumbnails"></div>
                         </div>
-                        <p class="filename" id="referenceMultiFilename"><span class="filename-label">Generated:</span></p>
+                        <p class="filename" id="referenceMultiFilename"><span class="filename-label">Gen:</span></p>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@
                         <div class="preview-wrapper">
                             <img id="generatedImg" alt="Target Image">
                         </div>
-                        <p class="filename" id="generatedFilename" data-label="Target:"><span class="filename-label">Target:</span></p>
+                        <p class="filename" id="generatedFilename" data-label="Ref:"><span class="filename-label">Ref:</span></p>
                     </div>
                     <div class="preview-area multi-preview" id="generatedMultiPreview" style="display: none;">
                         <button class="remove-btn" onclick="removeMulti('generated')">
@@ -84,7 +84,7 @@
                         <div class="preview-wrapper">
                             <div class="multi-stack" id="generatedThumbnails"></div>
                         </div>
-                        <p class="filename" id="generatedMultiFilename"><span class="filename-label">Target:</span></p>
+                        <p class="filename" id="generatedMultiFilename"><span class="filename-label">Ref:</span></p>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
                             <svg class="loading-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
                                 <circle cx="12" cy="12" r="10" stroke-dasharray="50 100"/>
                             </svg>
-                            <span>Start Assessment</span>
+                            <span>Start</span>
                             <span class="loading-text">Processing...</span>
                         </button>
                         <button class="save-btn" id="saveBtn" disabled>
@@ -272,7 +272,8 @@
             const previewId = type + 'Preview';
             const imgId = type + 'Img';
             const filenameId = type + 'Filename';
-            const label = type === 'reference' ? 'Generated: ' : 'Target: ';
+            const label = type === 'reference' ? 'Gen: ' : 'Ref: ';
+            const truncatedName = filename.substring(0, 3) + '...';
 
             document.getElementById(uploadId).style.display = 'none';
             document.getElementById(previewId).style.display = 'flex';
@@ -284,7 +285,8 @@
                 document.querySelector('#' + previewId + ' .preview-wrapper').style.aspectRatio = aspectRatio;
             };
             img.src = dataUrl;
-            document.getElementById(filenameId).innerHTML = '<span class="filename-label">' + label + '</span>' + filename;
+            document.getElementById(filenameId).innerHTML = '<span class="filename-label">' + label + '</span>' + truncatedName;
+            document.getElementById(filenameId).title = filename;
         }
 
         function removeImage(type) {
@@ -375,7 +377,7 @@
                 btn.disabled = true;
             } else {
                 btn.classList.remove('loading');
-                btn.querySelector('span').textContent = 'Start Assessment';
+                btn.querySelector('span').textContent = 'Start';
                 updateEvalButton();
             }
         }
@@ -452,7 +454,7 @@
             if (count === 0) return;
 
             if (sortedRef.length !== sortedDist.length) {
-                const proceed = confirm(`Image count mismatch!\nGenerated: ${sortedRef.length} images\nTarget: ${sortedDist.length} images\n\nProceed with the smaller count?`);
+                const proceed = confirm(`Image count mismatch!\nGen: ${sortedRef.length} images\nRef: ${sortedDist.length} images\n\nProceed with the smaller count?`);
                 if (!proceed) return;
             }
 
@@ -527,11 +529,11 @@
                         <div class="report-images">
                             <div class="report-image-box">
                                 <div class="report-image-grid" id="reportRefGrid"></div>
-                                <div class="report-image-label">${refFiles.length > 1 ? 'Generated: ' + refFiles.length + ' images loaded' : referenceImageName}</div>
+                                <div class="report-image-label">${refFiles.length > 1 ? 'Gen: ' + refFiles.length + ' Ld' : referenceImageName}</div>
                             </div>
                             <div class="report-image-box">
                                 <div class="report-image-grid" id="reportDistGrid"></div>
-                                <div class="report-image-label">${distFiles.length > 1 ? 'Target: ' + distFiles.length + ' images loaded' : generatedImageName}</div>
+                                <div class="report-image-label">${distFiles.length > 1 ? 'Ref: ' + distFiles.length + ' Ld' : generatedImageName}</div>
                             </div>
                         </div>
                         <div class="report-metrics">
@@ -721,16 +723,17 @@
         function handleSingleImage(file, type) {
             const reader = new FileReader();
             reader.onload = (e) => {
+                const truncatedName = file.name.substring(0, 3) + '...';
                 if (type === 'reference') {
                     referenceImage = e.target.result;
                     referenceFiles = [];
                     refHasBatch = false;
-                    referenceImageName = file.name;
+                    referenceImageName = 'Gen:' + truncatedName;
                 } else {
                     generatedImage = e.target.result;
                     generatedFiles = [];
                     disHasBatch = false;
-                    generatedImageName = file.name;
+                    generatedImageName = 'Ref:' + truncatedName;
                 }
                 // Hide multi preview, show single preview
                 document.getElementById(type + 'MultiPreview').style.display = 'none';
@@ -790,9 +793,9 @@
             const thumbnails = document.getElementById(type + 'Thumbnails');
             const multiFilename = document.getElementById(type + 'MultiFilename');
             
-            const label = type === 'reference' ? 'Generated: ' : 'Target: ';
-            const remaining = imageFiles.length - 1;
-            multiFilename.innerHTML = `<span class="filename-label">${label}</span>${imageFiles.length} images loaded`;
+            const label = type === 'reference' ? 'Gen: ' : 'Ref: ';
+            multiFilename.innerHTML = `<span class="filename-label">${label}</span>${imageFiles.length} Ld`;
+            multiFilename.title = imageFiles.slice(0, 3).map(f => f.name).join(', ') + (imageFiles.length > 3 ? ', ...' : '');
             
             thumbnails.innerHTML = '';
             
